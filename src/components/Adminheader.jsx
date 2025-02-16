@@ -1,11 +1,6 @@
-
 import React,{useState} from 'react'
 import '../style/adminheader.css'
-
-
-
 import { useNavigate } from 'react-router-dom'
-
 function AdminHeader({setShowPanel,setSearch}) {
     
     const [isvisible,setIsvisible] =useState(false)
