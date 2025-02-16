@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import Adminheader from './Adminheader.jsx';
-
+import '../style/adminheader.css'
 import axios from "axios";
 import "../style/AdminOrder.css";
 
