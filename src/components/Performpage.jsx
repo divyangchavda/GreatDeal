@@ -1,7 +1,7 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import Panel from './Panel';
-import Perform from '../components/perform';
+import Performm from './Performm';
 
 function PerformPage({ setFilteredItems, filteredItems, setCartItems }) {
     const [showPanel, setShowPanel] = useState(false);
@@ -12,8 +12,9 @@ function PerformPage({ setFilteredItems, filteredItems, setCartItems }) {
         <div>
             <Header setShowPanel={setShowPanel} setSearch={setSearch} />
             <Panel setFilteredItems={setFilteredItems} showPanel={showPanel} search={search} setCurrSelectedCategory={setCurrSelectedCategory} />
-            <Perform filteredItems={filteredItems} setCartItems={setCartItems} search={search} currselectedCategory={currselectedCategory} />
+            <Performm filteredItems={filteredItems} setCartItems={setCartItems} search={search} currselectedCategory={currselectedCategory} />
         </div>
     );
 }
+
 export default PerformPage;
