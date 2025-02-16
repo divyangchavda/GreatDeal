@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import Header from './Header';
 import Panel from './Panel';
-import Perform from './perform';
+import Perform from '../components/perform';
 
 function PerformPage({ setFilteredItems, filteredItems, setCartItems }) {
     const [showPanel, setShowPanel] = useState(false);
