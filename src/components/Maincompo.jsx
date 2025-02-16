@@ -4,7 +4,7 @@ import Signup from './Signup';
 import Login from './Login';
 import PerformPage from './Performpage' // Import the wrapper component
 import Performcartpage from './Performcartpage' // Import the wrapper component
-import Performnotipage from './Performnotipage' // Import the wrapper component
+
 import Admin from './Admin';
 import OrderHistory from './OrderHistory';
 import AdminOrder from './AdminOrder';
@@ -26,7 +26,7 @@ function Maincompo() {
                     element={<PerformPage setFilteredItems={setFilteredItems} filteredItems={filteredItems} setCartItems={setCartItems} />}
                 />
             < Route path='/Performcartpage' element={< Performcartpage logUserId={logUserId} setOrderHist={setOrderHist} cartItems={cartItems} setAdminOrderList={setAdminOrderList}setFilteredItems={setFilteredItems}  setCartItems={setCartItems} />}/>
-            < Route path='/Performnotipage' element={< Performnotipage setFilteredItems={setFilteredItems} />}/>
+           
             <Route path='/OrderHistory' element={<OrderHistory OrderHist={OrderHist} logUserId={logUserId}/>}/>
             <Route path='AdminOrder' element={<AdminOrder adminOrderList={adminOrderList}/>}/>
                 
