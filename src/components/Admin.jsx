@@ -2,9 +2,9 @@ import {React,useState}from 'react';
 import '../style/admin.css';
 
 import Adminheader from './Adminheader.jsx';
-import Adminpanel from 'D:/prectice sumago/react/vite app/my-react-app/src/components/Adminpanel.jsx';
+import Adminpanel from '././Adminpanel.jsx';
 
-import Adminperform from 'D:/prectice sumago/react/vite app/my-react-app/src/components/Adminperform.jsx';
+import Adminperform from '././Adminperform.jsx';
 
 function Admin() {
     const [selectedItems,setselectedItem] = useState([]);
