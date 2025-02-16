@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../style/adminperfrom.css';
-import axios from 'axios'; add 
+import axios from 'axios'; 
 
 function Adminperform({ selectedItems }) {
     const [allProducts, setAllProducts] = useState([]); // Unified state for products
