@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import 'D:/prectice sumago/react/vite app/my-react-app/src/style/adminperfrom.css';
-import axios from 'axios';
+import '../style/adminperfrom.css';
+import axios from 'axios'; add 
 
 function Adminperform({ selectedItems }) {
     const [allProducts, setAllProducts] = useState([]); // Unified state for products
