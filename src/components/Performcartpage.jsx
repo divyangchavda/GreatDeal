@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import Header from "./Header";
-import Panel from "./Panel";
+
 import Cartpage from "./Cartpage";
 
 const Performcartpage =({cartItems ,setFilteredItems,setCartItems,setOrderHist,setAdminOrderList,logUserId})=>{
