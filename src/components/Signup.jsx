@@ -1,8 +1,7 @@
 import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
-import '../style/signup.css'
-
+import '../../style/signup.css'
 function Signup(){
     const [name,setName]=useState()
     const [email,setEmail]=useState()
@@ -24,17 +23,7 @@ function Signup(){
     }
 
     return (
-        // <div className="All">
-        //     <div className="Login">
-        //         <div className="userlogin">
-        //             <h1>Register</h1>
-        //             <input type="text" name="name" placeholder="Enter Name" autoComplete="off" onChange={(e)=>setName(e.target.value)}></input>
-        //             <input type="text" name="email" placeholder="Enter Email" autoComplete="off" onChange={(e)=>setEmail(e.target.value)}></input>
-        //             <input type="password" name="password" placeholder="Enter Password" autoComplete="off" onChange={(e)=>setPassword(e.target.value)}></input>
-        //             <button onClick={login}>Register</button>
-        //         </div>
-        //     </div>
-        // </div>
+        
         <div className='signup'>
              <div className='signup-form' >
                  <h1>Sign Up</h1>                 
