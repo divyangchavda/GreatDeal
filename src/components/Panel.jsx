@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import '../style/Panel.css';
 import { useNavigate } from 'react-router-dom';

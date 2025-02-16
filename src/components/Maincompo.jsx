@@ -26,7 +26,6 @@ function Maincompo() {
                     element={<PerformPage setFilteredItems={setFilteredItems} filteredItems={filteredItems} setCartItems={setCartItems} />}
                 />
             < Route path='/Performcartpage' element={< Performcartpage logUserId={logUserId} setOrderHist={setOrderHist} cartItems={cartItems} setAdminOrderList={setAdminOrderList}setFilteredItems={setFilteredItems}  setCartItems={setCartItems} />}/>
-           
             <Route path='/OrderHistory' element={<OrderHistory OrderHist={OrderHist} logUserId={logUserId}/>}/>
             <Route path='AdminOrder' element={<AdminOrder adminOrderList={adminOrderList}/>}/>
                 
