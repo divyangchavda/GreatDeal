@@ -5,10 +5,10 @@ body {
    
 }
 .Panel{
-    height: 80vh;
-    width: 20%;
-    background-color: #e9ecef;
-    position: fixed;
+    height: 100vh;
+    width: 25%;
+    background-color:#584D49;
+    position: absolute;
     top: 0;
     left: 0;
     margin: 0;
@@ -16,17 +16,15 @@ body {
     border: #e9ecef;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
-    
-    
-    
+    z-index: 10;    
 }
 .Panel h1{
     text-align: center;
     padding: 5%;
     margin: 0;
-    background-color: #343a40;
+    background-color: #E2DAD6;
     border-top-right-radius:25px ;
-    color: white;
+    color: black;
 }
 .category{
     margin-top: 5%;
@@ -35,20 +33,44 @@ body {
     text-align: center;
     overflow: auto;
     height: 100%;
+    width: 100%;
 
 }
 .category ul{
     margin-top: 0;
     margin-left: 0;
     padding-left: 0;
+    width: 83.5%;
    
 }
+/* .show{
+    display: flex;
+}
+.hide{
+    display: none;
+} */
+/* .Panel.hide {
+    transform: translateX(-100%); 
+  }
+  
+  .Panel.show {
+    transform: translateX(0); 
+  } */
+ .show {
+    transform: translateX(0); 
+  
+ }
+  
+  .hide {
+    transform: translateX(50%); 
+    } 
 .category h2{
     margin: 0;
 }
 .category ul li{
+    width:96%;
     list-style-type: none;
-    background-color:#f8f9fa ;
+    background-color:white;
     margin-bottom:3%;
     font-size: large;
     padding: 2%;
@@ -56,7 +78,8 @@ body {
     padding-left: 17%;
     transition: 0.2s ease-in-out;
     cursor: pointer;
-
+    margin-left: 2%;
+    margin-right: 2%;
     
     
 }
@@ -64,3 +87,85 @@ body {
     background-color: #343a40;
     color: white;
 }
+.Panelbtn{
+    display: none;
+}
+.visible{
+    display: block;
+}
+.hidden{
+    display: none;
+}
+@media (max-width: 420px) {
+    .Panel{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 10;
+        top: 20%;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        border: #e9ecef;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+       
+    }
+    .Panel h1{
+        text-align: center;
+        padding: 5%;
+        margin: 0;
+        background-color: #E2DAD6;
+        border-top-right-radius:25px ;
+        color: black;
+        display: none;
+    }
+    .category{
+        margin-top: 5%;
+        margin-left: 0;
+        padding: 0;
+        text-align: center;
+        overflow: auto;
+        height: 100%;
+        width: 100%;
+    
+    }
+    .category ul{
+        margin-top: 0;
+        margin-left: 0;
+        padding-left: 0;
+        width: 83.5%;
+       
+    }
+    .category h2{
+        display: none;
+    }
+    .category ul li{
+        width:96%;
+        list-style-type: none;
+        background-color:white;
+        margin-bottom:3%;
+        font-size: large;
+        padding: 2%;
+        text-align: left;
+        padding-left: 17%;
+        transition: 0.2s ease-in-out;
+        cursor: pointer;
+        margin-left: 2%;
+        margin-right: 2%;
+        
+        
+    }
+    .Panelbtn{
+    display: block;
+    margin-top: -15%;
+
+    }
+
+
+    .category ul li:hover{
+        background-color: #343a40;
+        color: white;
+    }
+}
+

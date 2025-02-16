@@ -1,70 +1,34 @@
-// import React,{useState}from 'react'
-// import Panel from './Panel'
-// import Header from './Header'
-// import Perform from './perform'
-// import Cartpage from './cartPage'
-// import Notification from './notification'
-// import Search from './search'
-// import Signup from './Signup'
-// import Login from './Login'
-
-// import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
-// function Maincompo() {
-//     const [filteredItems,setFilteredItems] = useState([]);
-//     return (
-//         <>
-        
-       
-//         <Router>
-            
-                
-            
-    
-            
-            
-      
-//             <Routes>
-//                     <Route path='/' element={<Signup />} />
-//                     <Route path='/Login' element={<Login />} />
-                  
-//                                 <Route path='/Perform' element={<Header/>} />
-//                                 <Route path='/Perform' element={<Panel setFilteredItems={setFilteredItems}/>} />
-//                                 <Route path="/Perform" element={<Perform filteredItems={filteredItems} />}/> 
-                       
-//                 <Route path='/Cartpage' element={<Cartpage />} />
-//                  <Route path='/Notification' element={<Notification />} /> 
-//                 <Route path='/Search' element={<Search />} />
-              
-//             </Routes>
-       
-            
-            
-//         </Router>
-//         </>
-//     )
-// }
-// export default Maincompo
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Signup from './Signup';
 import Login from './Login';
-import Cartpage from './Cartpage';
-import Notification from './Notification';
-import Search from './Search';
 import PerformPage from './Performpage' // Import the wrapper component
+import Performcartpage from './Performcartpage' // Import the wrapper component
+import Performnotipage from './Performnotipage' // Import the wrapper component
+import Admin from './Admin';
+import OrderHistory from './OrderHistory';
+import AdminOrder from './AdminOrder';
 
 function Maincompo() {
     const [filteredItems, setFilteredItems] = useState([]);
-
+    const [cartItems, setCartItems] = useState([]);
+    const [OrderHist,setOrderHist]=useState([]);
+    const [adminOrderList,setAdminOrderList]=useState([]);
+    const [logUserId,setLogUserId]=useState();
     return (
         <Router>
             <Routes>
                 <Route path='/' element={<Signup />} />
-                <Route path='/Login' element={<Login />} />
+                <Route path='/Login' element={<Login setLogUserId={setLogUserId}/>} />
+                <Route path='/Admin' element={<Admin />}/>
                 <Route
                     path='/Perform'
-                    element={<PerformPage setFilteredItems={setFilteredItems} filteredItems={filteredItems} />}
+                    element={<PerformPage setFilteredItems={setFilteredItems} filteredItems={filteredItems} setCartItems={setCartItems} />}
                 />
+            < Route path='/Performcartpage' element={< Performcartpage logUserId={logUserId} setOrderHist={setOrderHist} cartItems={cartItems} setAdminOrderList={setAdminOrderList}setFilteredItems={setFilteredItems}  setCartItems={setCartItems} />}/>
+            < Route path='/Performnotipage' element={< Performnotipage setFilteredItems={setFilteredItems} />}/>
+            <Route path='/OrderHistory' element={<OrderHistory OrderHist={OrderHist} logUserId={logUserId}/>}/>
+            <Route path='AdminOrder' element={<AdminOrder adminOrderList={adminOrderList}/>}/>
                 
             </Routes>
         </Router>

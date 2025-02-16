@@ -2,5 +2,8 @@
 body{
     margin: 0;
     padding: 0;
-    background-color:#F0F3F8;
+    background-color:#F5EDED;
+}
+.app-div{
+    background-color:#F5EDED;
 }

@@ -13,8 +13,7 @@ function Search() {
                             <p className='product-price'> 5999$</p>
                             <button className='cart-button'>Add to Cart</button>
                         </div>
-            </div>
-                         
+            </div>            
             </div>   
     )
 }

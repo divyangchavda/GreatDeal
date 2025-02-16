@@ -3,13 +3,14 @@ import Header from "./Header";
 import Panel from "./Panel";
 import Cartpage from "./Cartpage";
 
-const PerformCartPage = () => {
-    const [CartItems, setCartItems] = useState([]);
-    return (
-    <div>
-      <Header />
-      <Panel setFilteredItems={setCartItems} />
-      <Cartpage filteredItems={CartItems} />
-    </div>
-  );
+const Performcartpage =({cartItems ,setFilteredItems,setCartItems,setOrderHist,setAdminOrderList,logUserId})=>{
+    const [showPanel,setShowPanel] = useState(false)
+    return(
+        <div>
+             <Header setShowPanel={setShowPanel} />
+         
+            <Cartpage cartItems={cartItems} setCartItems={setCartItems}  logUserId={logUserId} setAdminOrderList={setAdminOrderList} setOrderHist={setOrderHist}/>
+        </div>
+    );
 }
+export default Performcartpage;

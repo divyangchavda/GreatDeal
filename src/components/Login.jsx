@@ -1,19 +1,45 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import "../style/Login.css";
 import  { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-function Login() {  
+
+function Login({setLogUserId}) {  
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const Navigate = useNavigate();
+    useEffect(()=>{
+        setLogUserId(email);
+    },[email])
     const OnClickLogin = () => {
-        Navigate("/Perform");
-        console.log('Login clicked')
+        try{
+        axios.post('http://localhost:8000/api/product/UserLogin', { email, password })
+            .then((res) => {
+                console.log(res.data);
+                Navigate('/Perform');
+                console.log(email);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        }catch(error){
+            console.log("onclickLogin not running")
+        }
+      
+        
+    }
+    const onClickAdmin=()=>{
+        Navigate("/Admin");
+        console.log('Admin clicked')
     }
     return(
         <div className='login'>
             <div className='login-form'>
                 <h1>Login</h1>
-                <input type='email' placeholder='Email' className='input-field' /><br />
-                <input type='password' placeholder='Password' className='input-field' /><br />
+                <button className='admin-btn' onClick={onClickAdmin}>Admin</button>
+                
+                <input type='email' placeholder='Email' className='input-field'  onChange={(e)=>setEmail(e.target.value)}/><br />
+                <input type='password' placeholder='Password' className='input-field' onChange={(e)=>setPassword(e.target.value)}/><br />
                 <button  onClick={OnClickLogin} className='login-button'>Login</button>
                 {/* onClick={OnClickLogin} */}
             </div>

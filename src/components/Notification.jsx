@@ -24,7 +24,7 @@ function Notification() {
                     </div>
                 </div>
 
-                <div  className='cart-item'>
+                {<div  className='cart-item'>
                     <div className='cart-image-div'>
                         <img src="cart-img.png" alt='Product' className='cart-image' />
                     </div>
@@ -37,9 +37,9 @@ function Notification() {
                         <h2>HAPPY SUNDAY OFFER <b>20% OFF</b></h2>
                         <button className='cart-button'>Add To Cart</button>
                     </div>
-                </div>
+                </div> }
 
-                <div  className='cart-item'>
+                { <div  className='cart-item'>
                     <div className='cart-image-div'>
                         <img src="cart-img.png" alt='Product' className='cart-image' />
                     </div>
@@ -52,9 +52,9 @@ function Notification() {
                         <h2>HAPPY SUNDAY OFFER <b>99% OFF</b></h2>
                         <button className='cart-button'>Add To Cart</button>
                     </div>
-                </div>
+                </div> }
 
-                <div  className='cart-item'>
+                { <div  className='cart-item'>
                     <div className='cart-image-div'>
                         <img src="cart-img.png" alt='Product' className='cart-image' />
                     </div>
@@ -67,7 +67,7 @@ function Notification() {
                         <h2>HAPPY SUNDAY OFFER <b>110% OFF</b></h2>
                         <button className='cart-button'>Add To Cart</button>
                     </div>
-                </div>
+                </div> }
         </div>
 
             

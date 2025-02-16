@@ -1,18 +1,19 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Header from './Header';
 import Panel from './Panel';
-import Perform from './perform';
+import Perform from './Perform';
 
+const PerformPage = ({ setFilteredItems, filteredItems,setCartItems }) => {
+    const [showPanel,setShowPanel] = useState(false)
+    const [search,setSearch] = useState('')
+    const [currselectedCategory,setCurrSelectedCategory]=useState("");
 
-const PerformPage = ({ setFilteredItems, filteredItems }) => {
     return (
         <div>
-            <Header />
-            <Panel setFilteredItems={setFilteredItems} />
-            <Perform filteredItems={filteredItems} />
-            
+            <Header setShowPanel={setShowPanel} setSearch={setSearch} />
+            <Panel setFilteredItems={setFilteredItems}  showPanel={showPanel} search={search} setCurrSelectedCategory={setCurrSelectedCategory}/>
+            <Perform filteredItems={filteredItems} setCartItems={setCartItems} search={search} currselectedCategory={currselectedCategory} />    
         </div>
     );
 };
-
 export default PerformPage;

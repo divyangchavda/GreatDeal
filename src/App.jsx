@@ -6,18 +6,18 @@ import Maincompo from './components/Maincompo';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 // import Signup from './components/Signup'
 // import Login from './components/Login'
-
+import axios from 'axios';
 // import Perform from './components/perform'
 
 function App() {
- 
-
+  
+  
   
 
   return (
     <>
   
-    <div >
+    <div  className='app-div'>
       <Maincompo />
     </div>
       

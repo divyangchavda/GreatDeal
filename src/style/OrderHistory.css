@@ -1,0 +1,200 @@
+/* Order Card Container */
+.order-card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+/* Order Card */
+.order-card {
+  display: flex;
+  flex-direction: row; /* Changed to row for image & details */
+  align-items: center;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  gap: 15px; /* Space between image and text */
+}
+
+/* Product Image */
+.order-product-image img {
+  width: 140px; /* Adjust size as needed */
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Order Card Body */
+.order-card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+
+/* Individual Order Card */
+/* .order-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+} */
+
+.order-card:hover {
+  transform: scale(1.02);
+}
+
+/* Order Header */
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Order Date */
+.order-date {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Order Status */
+.order-status {
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  width: auto;
+}
+
+/* Different status colors */
+.order-status.pending {
+  background-color: #ffcc00;
+  color: #fff;
+}
+
+.order-status.dispatch {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.order-status.deliver {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.order-status.cancel {
+  background-color: #dc3545;
+  color: #fff;
+  width:13%
+}
+
+/* Order Body */
+.order-card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  width: 100%;
+}
+
+/* Product Title */
+.order-product h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Order Details */
+.order-details p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Order Footer */
+.order-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 10px;
+}
+
+/* Dropdown Styling */
+.status-dropdown {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: #f8f8f8;
+  cursor: pointer;
+  font-size: 14px;
+  outline: none;
+}
+
+.status-dropdown:hover {
+  background: #e8e8e8;
+}
+/* Cancel Button */
+.cancel-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cancel-button:hover {
+  background-color: #cc0000;
+}
+
+/* Cancelled Order Text */
+.cancelled-text {
+  font-size: 14px;
+  font-weight: bold;
+  color: #888;
+}
+
+
+.generate-bill-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.generate-bill-button:hover {
+  background-color: #218838;
+}
+
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .order-card {
+      flex-direction: column;
+  }
+  
+  .order-card-header {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+ 
+  .order-status.cancel{
+    width: 20%;
+  }
+  .order-card-footer {
+      justify-content: center;
+  }
+}

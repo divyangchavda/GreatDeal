@@ -1,0 +1,15 @@
+.admin{ 
+    height:100%;
+    width: 100%;
+ display: flex;
+ flex-direction: column;
+}
+.admin-header-div{
+
+    width: 100%;
+}
+.admin-body{
+    height: auto;
+    width: 100%;
+    
+}
