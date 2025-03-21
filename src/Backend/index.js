@@ -64,5 +64,8 @@ app.post('/api/product/orders', async (req, res) => {
     }
 });
 
+app.get("/", (req, res) => {
+    res.send("Server is running");
+  });
 // API Routes
 app.use("/api/product", Route);
