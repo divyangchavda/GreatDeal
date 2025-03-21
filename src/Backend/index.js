@@ -3,33 +3,50 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import Route  from './routes/userRoutes.js';
+import Route from './routes/userRoutes.js';
 import Razorpay from 'razorpay';
 import session from 'express-session';
 
-const app=express();
-app.use(cors(
-    {
-        origin:'http://localhost:5173',
-        credentials:true
-    }
-));
-app.use(express.json());
-app.use(express.urlencoded({extended:false}));
 dotenv.config();
+
+const app = express();
+
+// CORS - Allow both local and live frontend
+app.use(cors({
+    origin: ['http://localhost:5173', 'https://your-live-site.com'],
+    credentials: true
+}));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use(session({
-    secret:"ddddd",
-    resave:false,
-    saveUninitialized:false,
-    cookie:{
-        maxAge:1000*60*60*24
-    }
-}))
-const PORT =process.env.PORT || 5000;
+    secret: "ddddd",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }
+}));
+
+const PORT = process.env.PORT || 5000;
 const MONGOURL = process.env.MONGO_URL;
 
+// Debugging - Check if environment variables are loaded
+console.log("MongoDB URL:", MONGOURL);
 
-//razorpay 
+// Connect to MongoDB Atlas
+mongoose.connect(MONGOURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log('✅ Connected to MongoDB Atlas');
+    app.listen(PORT, () => {
+        console.log(`🚀 Server is running on port ${PORT}`);
+    });
+}).catch((error) => {
+    console.error('❌ MongoDB Connection Error:', error);
+});
+
+// Razorpay API Integration
 app.post('/api/product/orders', async (req, res) => {
     try {
         const razorpay = new Razorpay({
@@ -43,20 +60,9 @@ app.post('/api/product/orders', async (req, res) => {
         }
         return res.json(orders);
     } catch (error) {
-        res.status(500).json("Internal server error in razorpay index.js");
+        res.status(500).json({ message: "Internal server error in Razorpay" });
     }
 });
 
-//Coonect with mongodb
-
-mongoose.connect(MONGOURL)
-        .then(()=>{
-            console.log('Database connected')
-            app.listen(PORT,()=>{
-                console.log(`Server is running on port ${PORT}`)
-            })
-        }).catch((error)=>{
-            console.log('Error:',error.message)
-        })
-
-app.use("/api/product",Route);
+// API Routes
+app.use("/api/product", Route);
