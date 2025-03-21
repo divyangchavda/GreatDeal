@@ -39,6 +39,22 @@ const productSchema= new mongoose.Schema({
     password:{
         type:String,
         required:true
+    },
+    contact:{
+        type:String,
+        
+    },
+    address:{
+        type:String
+    },
+    gender:{
+        type:String,
+    
+    },
+
+    age:{
+        type:String,
+        
     }
 
 })

@@ -3,13 +3,13 @@ import Header from "./Header";
 import Performm from './Performm';
 import Cartpage from "./Cartpage";
 
-const Performcartpage =({cartItems ,setFilteredItems,setCartItems,setOrderHist,setAdminOrderList,logUserId})=>{
+const Performcartpage =({cartItems ,setCartItems,setOrderHist,setAdminOrderList})=>{
     const [showPanel,setShowPanel] = useState(false)
     return(
         <div>
              <Header setShowPanel={setShowPanel} />
    
-            <Cartpage cartItems={cartItems} setCartItems={setCartItems}  logUserId={logUserId} setAdminOrderList={setAdminOrderList} setOrderHist={setOrderHist}/>
+            <Cartpage cartItems={cartItems} setCartItems={setCartItems}   setAdminOrderList={setAdminOrderList} setOrderHist={setOrderHist}/>
         </div>
     );
 }

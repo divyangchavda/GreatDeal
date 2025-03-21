@@ -1,4 +1,3 @@
-
 import {Productdata,User,Order} from '../model/userModel.js';
 
 const create = async (req, res) => {
@@ -52,10 +51,14 @@ const update = async (req, res) => {
     try {
         const { id } = req.params;
         const productData = req.body;
+        if (req.body.images && typeof req.body.images === "string") {
+            req.body.images = req.body.images.split(',').map(img => img.trim());
+        }
         const updatedProduct = await Productdata.findByIdAndUpdate(id, productData, { new: true });
         if (!updatedProduct) {
             return res.status(404).json({ message: "Product not found" });
         }
+        
         res.status(200).json(updatedProduct);
     } catch (error) {
         console.error(error);
@@ -80,7 +83,19 @@ const Delete = async (req, res) => {
 
  const UserCreate=async(req,res)=>{
     try{
-        const user=await User.create(req.body)
+        const {name,email,password}=req.body;
+        if(!name || !email || !password){
+            return res.status(400).json({error:"Please provide all required fields"});
+        }
+        const user=await User.create({
+            name,
+            email,
+            password,
+            contact:'',
+            address:'',
+            gender:'',
+            age:''
+        })
         return res.status(201).json(user);
     }
     catch(error){
@@ -88,6 +103,7 @@ const Delete = async (req, res) => {
 
     }
 }
+
 const UserFetch = async (req, res) => {
     try {
         const Users = await User.find();
@@ -110,16 +126,21 @@ const UserLogin = async (req, res) => {
         if (user.password !== password) {
             return res.status(404).json({ message: "Invalid email or password" });
         }
+        const userEmail = user.email;
+        req.session.user = userEmail;
+        await req.session.save();
+
         res.status(200).json(user);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal server error" });s
+        res.status(500).json({ error: "Internal server error in UserLogin" });
     }
 }
 const OrderCreate = async (req, res) => {
     try {
-        const { user, orderItems, shippingAddress, isPaid } = req.body;
-
+        const user= req.session.user;
+        const {orderItems, shippingAddress, isPaid } = req.body;
+        
         // Validate request body
         if (!user || !orderItems || orderItems.length === 0 || !shippingAddress ) {
             return res.status(400).json({ error: "Invalid order data. Please provide all required fields." });
@@ -142,7 +163,9 @@ const OrderCreate = async (req, res) => {
 };
 const OrderFetchIndividual   = async (req, res) => {
     try {
-        const userEmail = req.params.email;
+        // const userEmail = req.params.email;
+        const userEmail=req.session.user;
+            console.log("🟢 Uorderfetchindividual:", userEmail);
         const order = await Order.find({user: userEmail});
         if (!order || order.length === 0) {
             return res.status(404).json({ message: "Order not found" });
@@ -151,6 +174,47 @@ const OrderFetchIndividual   = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+const UserDetailUpadate= async (req, res) => {
+    try {
+        const userEmail = req.session.user; // Corrected from req.paras.email
+        console.log("🟢 User Email:", userEmail);
+        if(!userEmail){
+            return res.status(404).json({message:"User email not come"});
+        }
+        console.log("🟢 User Data:", req.body);
+        const userData = await User.findOneAndUpdate(
+            { email: userEmail }, // Correct query format
+            req.body,
+            { new: true }
+        );
+
+        if (!userData) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json(userData);
+    } catch (error) {
+        console.error("Error in UserDetailUpdate:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
+const UserDetail=async(req,res)=>{
+    try{
+        const userEmail=req.session.user;
+        console.log("userDey=tail",userEmail)
+        const userData=await User.findOne({email:userEmail});
+        if(!userData){
+            return res.status(404).json({message:"User not found"});
+        }
+        res.status(200).json(userData);
+    }
+    catch{
+        
+        res.status(500).json({error:"catch block error in UserDetail at userController"});
     }
 }
 const OrderFetchAdmin =async(req,res)=>{
@@ -166,20 +230,7 @@ const OrderFetchAdmin =async(req,res)=>{
 
     }
 }
-// const OrderUpdate = async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const orderData = req.body;
-//         const updatedOrder = await Order.findByIdAndUpdate(id, orderData, { new: true });
-//         if (!updatedOrder) {
-//             return res.status(404).json({ message: "Order not found in useControll" });
-//         }
-//         res.status(200).json(updatedOrder);
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: "Internal server error in usercontroll" });
-//     }
-// }const mongoose = require("mongoose"); // Import mongoose for ObjectId check
+
 const OrderUpdate = async (req, res) => {
     try {
         const { id } = req.params;  // Order ID
@@ -210,5 +261,16 @@ const OrderUpdate = async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 };
+const SessionDestroy=async(req,res)=>{
+    try{
+        req.session.destroy();
+        res.clearCookie('sid');
+        console.log("Session Destroyed");
+        return res.status(200).json({message:"Session Destroyed"});
 
-export { Fetch, create,update,Delete,UserCreate,UserFetch,UserLogin,OrderCreate,OrderFetchIndividual,OrderFetchAdmin,OrderUpdate};
+    }catch(error){
+        return res.status(500).json({error:"Internal Server Error"});
+    }
+}
+
+export { Fetch, create,update,Delete,UserCreate,UserFetch,UserLogin,OrderCreate,OrderFetchIndividual,OrderFetchAdmin,OrderUpdate,UserDetailUpadate,UserDetail,SessionDestroy};

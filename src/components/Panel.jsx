@@ -3,7 +3,7 @@ import '../style/Panel.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function Panel({ setFilteredItems, showPanel ,search,setCurrSelectedCategory}) {
+function Panel({ setFilteredItems, showPanel ,search,setCurrSelectedCategory,setShowPanel}) {
   const [selectedCategory, setSelectedCategory] = useState("All"); // Default category is 'All'
   const [data, setData] = useState([]); // Holds the products fetched from the API
   const [btnshow, setBtnShow] = useState(false); // This state controls the visibility of the button (optional use case)
@@ -21,7 +21,11 @@ function Panel({ setFilteredItems, showPanel ,search,setCurrSelectedCategory}) {
         console.log("Error fetching data");
       });
   }, [setFilteredItems]);
-
+  useEffect(() => {
+    if(setShowPanel){
+      setShowPanel(false);
+    }
+  },[selectedCategory])
   useEffect(() => {
    
       const filteredItems=data.filter((item)=>{
@@ -45,16 +49,16 @@ function Panel({ setFilteredItems, showPanel ,search,setCurrSelectedCategory}) {
   }
 
   function onHide() {
-    setBtnShow(false); // Hide button (optional)
+    setShowPanel(false); // Hide button (optional)
   }
 
   return(
     <>
-      <div className={`Panel ${showPanel ? 'show' : 'hide'}`}>
+    <div className={`Panel ${showPanel ? 'show' : 'hide'}`}>
         {/* Show the panel only if 'isvisible' state is true */}
-        <div onClick={onClickPanel} className='category'>
-          <h2>Category</h2>
-          <ul>
+      <div onClick={onClickPanel} className='category'>
+         
+        <ul>
             <li onClick={onHide}>Close</li>
           <li onClick={()=>{setSelectedCategory("All")}}>All</li>
           <li onClick={()=>{setSelectedCategory("beauty")}}>Beauty</li>

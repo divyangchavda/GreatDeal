@@ -4,34 +4,56 @@ import  { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 
-function Login({setLogUserId}) {  
+function Login() {  
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const Navigate = useNavigate();
-    useEffect(()=>{
-        setLogUserId(email);
-    },[email])
+    
+   
+    const onClickAdmin=()=>{
+        if(email==="Admin" && password==="Admin"){
+            Navigate('/Admin');
+        }
+        if(email!=="Admin" && password!=="Admin"){
+            alert("Invalid Admin Credentials")
+        }
+    }
     const OnClickLogin = () => {
         try{
-        axios.post('http://localhost:8000/api/product/UserLogin', { email, password })
+        axios.post('http://localhost:8000/api/product/UserLogin', { email, password },{withCredentials:true})
             .then((res) => {
+                const data = res.data;
                 console.log(res.data);
                 Navigate('/Perform');
                 console.log(email);
+                if(data.email===email && data.password===password){
+                    alert("Login Successfull")
+                }
+                if(data.email!==email && data.password===password){
+                    alert("Invalid Email")
+                }
+                if(data.email===email && data.password!==password){
+                    alert("Invalid Password")
+                }
+               if (data.email!==email && data.password!==password){
+                    alert("Invalid Credentials")
+                    console.log("Invalid Credentials")
+                }
+               
             })
             .catch((error) => {
                 console.log(error);
+                alert("Invalid Credentials")
             });
         }catch(error){
             console.log("onclickLogin not running")
-        }
-      
+        }  
+    }
+    // const onClickAdmin=()=>{
         
-    }
-    const onClickAdmin=()=>{
-        Navigate("/Admin");
-        console.log('Admin clicked')
-    }
+    //     Navigate("/Admin");
+    //     console.log('Admin clicked')
+    // }
     return(
         <div className='login'>
             <div className='login-form'>

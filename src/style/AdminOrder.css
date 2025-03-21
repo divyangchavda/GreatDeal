@@ -85,6 +85,74 @@
   outline: none;
   box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.6);
 }
+.order {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ordertext {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.Adminorder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.showorder {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.showorder:hover {
+  background-color: #0056b3;
+}
+
+.datecontainer,
+.statuscontainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.dateinput,
+.option {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.option {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .Adminorder {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
 
 /* Mobile View */
 @media screen and (max-width: 768px) {

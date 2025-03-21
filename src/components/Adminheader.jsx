@@ -38,7 +38,7 @@ function AdminHeader({setShowPanel,setSearch}) {
  <>
     <div className='admin-header'>
         <div className='search-div'>
-            <h1><img src="logo1.png" alt=""  onClick={onClickAdmin} /></h1>
+            <button onClick={ onClickAdmin}>GreatDeals</button>
             <input type="text" placeholder="Search..." className="search-box" onChange={(e)=>setSearch(e.target.value)} />
         </div>
         <div  className='nav-div'>

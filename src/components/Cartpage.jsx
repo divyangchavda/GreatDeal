@@ -4,7 +4,7 @@ import '../style/cartPage.css';
 import axios from 'axios';
 
 
-function Cartpage({ cartItems, setCartItems ,setOrderHist,setAdminOrderList,logUserId}) {
+function Cartpage({ cartItems, setCartItems }) {
     const navigate = useNavigate();
     const [totalPrice, setTotalPrice] = useState(0);
     const [address, setAddress] =useState("");
@@ -18,7 +18,7 @@ function Cartpage({ cartItems, setCartItems ,setOrderHist,setAdminOrderList,logU
     //     setOrderHist((prev) => [...prev, e]);
         
     // };
-   console.log("email on cart page",logUserId)
+  
 
     useEffect(() => {
         let total = 0;
@@ -83,11 +83,8 @@ function Cartpage({ cartItems, setCartItems ,setOrderHist,setAdminOrderList,logU
                 },handler: async function (response) {
                     try {
                         // Fetch user ID (modify as needed)
-                        const userId = logUserId; 
-                        if(!userId){
-                            alert("Please login first");
-                            navigate("/Login");
-                        }
+                    
+                        
                         if (cartItems.length === 0) {
                             console.error("Cart is empty");
                             alert("Your cart is empty!");
@@ -110,7 +107,7 @@ function Cartpage({ cartItems, setCartItems ,setOrderHist,setAdminOrderList,logU
                 
                         // Construct order data
                         const orderData = {
-                            user: userId,
+                         
                             orderItems,
                             shippingAddress: { 
                                 address, 
@@ -122,7 +119,7 @@ function Cartpage({ cartItems, setCartItems ,setOrderHist,setAdminOrderList,logU
                         };
                         console.log("sending order data",orderData);
                         try {
-                        const res = await axios.post('http://localhost:8000/api/product/OrderData', orderData );
+                        const res = await axios.post('http://localhost:8000/api/product/OrderData', orderData ,{withCredentials:true});
                         } catch (error) {
                             console.error('Error sending order data to the server:', error);
                         }

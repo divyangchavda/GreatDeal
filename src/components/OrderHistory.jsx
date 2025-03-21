@@ -3,16 +3,11 @@ import Header from "./Header";
 import "../style/OrderHistory.css";
 import axios from "axios";
 
-function OrderHistory({ logUserId }) {
+function OrderHistory() {
   const [orders, setOrders] = useState([]);
-
-  if (!logUserId) {
-    alert("Please login to view your order history");
-  }
-
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/product/OrderFetchIndividual/${logUserId}`)
+      .post(`http://localhost:8000/api/product/OrderFetchIndividual`,{},{withCredentials:true})
       .then((res) => {
         console.log(res.data);
         const orderData = res.data;
@@ -29,13 +24,13 @@ function OrderHistory({ logUserId }) {
         setOrders(finalOrder);
       })
       .catch((err) => console.error("Error fetching orders:", err));
-  }, [logUserId]);
+  }, []);
 
   const handleStatusChange = async (orderId, orderItemId, newStatus) => {
     try {
       const res = await axios.put(`http://localhost:8000/api/product/OrderUpdate/${orderId}`, {
         orderItemId: orderItemId, // Pass orderItemId in the request body
-        orderStatus: newStatus    // New status from the dropdown
+        orderStatus: newStatus    // New status from the dropdown+
       });
 
       if (res.status === 200) {

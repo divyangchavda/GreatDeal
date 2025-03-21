@@ -3,41 +3,28 @@
     width: 100%;
     background-color: #343a40;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .logo{
     width: 20%;
     height: 70px;
 }
-.header {
-    height: 100%;
-    width: 94%;
-    display: flex;
 
-    background-color: #343a40;
-    padding-left:  20px;
-    flex-wrap: wrap;
-    margin: 0 3%;
-    margin-top: 1%;
-    border-radius: 25px;
-}
-.nav-list {
+/* .nav-list {
     list-style-type: none; 
    margin: 0;
    padding: 0;
     display: flex;
     justify-content: right;   
-}
+} */
 .nav-list li {
    
     padding: 10px;
     color: white;
     cursor: pointer; 
 }
-.nav-list li button{
-    padding: 10px 15px;
-   
-    border-radius: 8px;
-}
+
 .nav-list li button i{
    font-size: larger;
 }
@@ -47,18 +34,14 @@
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    margin-bottom: 0;
 }
-.search-div{
-    display: flex;
-    
-    width: 50%;
+
+
+.search-div button{
+    margin-top: 0;
 }
-.nav-div   {
-    width: 50%;
-    
-    justify-content: space-between;
-    
-}
+
 .profile-block{
     margin-top:0;
     margin-right: 0px;

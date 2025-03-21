@@ -5,55 +5,116 @@ import "../style/AdminOrder.css";
 
 function AdminOrder({}) {
     const [orders,setOrders]=useState([]);
+    const [filteredOrders,setFilteredOrders]=useState([]);
+    const [date,setDate]=useState();
+    const [option,setOption]=useState();
+  
     useEffect(() => {
       fetchOrders();
+    
+      
     }, []);
+    
     // Function to fetch orders
     const fetchOrders = () => {
       axios
         .get("http://localhost:8000/api/product/OrderFetchAdmin")
         .then((res) => {
           console.log(res.data);
+          
           setOrders(res.data); // Update state with latest data
+          setFilteredOrders(res.data);
+
         })
         .catch((error) => {
           console.error("Error fetching orders:", error);
         });
     }; 
-    // Function to update order status
-    const updateOrderStatus = (orderId, itemId, newStatus) => {
-      axios
-        .put(`http://localhost:8000/api/product/updateOrderStatus/${orderId}`, {
-          itemId, // Pass item ID to update specific item
-          orderStatus: newStatus, // New status
+    const updateOrderStatus= async (OrderFetchIndividual,orderItemId,newStatus)=>{
+        try{
+            const res=await axios.put(`http://localhost:8000/api/product/OrderUpdate/${OrderFetchIndividual}`,{
+                orderItemId:orderItemId,
+                orderStatus:newStatus
+            });
+            if(res.status===200){
+                setOrders((prevOrders)=>
+                prevOrders.map(item=>
+                item._id===orderItemId?{...item,orderStatus:newStatus}:item
+                )
+                );
+                console.log("Order status updated successfully");
+            }
+        }catch(error){
+            console.error("Error updating order status:",error);
+        }
+    }
+ 
+  
+  useEffect(() => {
+    console.log("Date:", date);
+    console.log("Option:", option);
+  
+    if (date || option) {
+      const currentDate = date ? new Date(date).toLocaleDateString() : null;
+      console.log("Current Date:", currentDate);
+  
+      const filteredOrders = orders
+        .map((order) => {
+          const backendDate = new Date(order.createdAt).toLocaleDateString();
+          const filteredByDate = date ? backendDate === currentDate : true;
+  
+          // Filter order items based on selected status
+          const filteredItems = option
+            ? order.orderItems.filter((item) => item.orderStatus === option)
+            : order.orderItems;
+  
+          if (filteredItems.length === 0 || !filteredByDate) return null; // Skip orders if no match
+  
+          return {
+            ...order,
+            orderItems: filteredItems,
+          };
         })
-        .then((res) => {
-          console.log("Order status updated:", res.data);
-          // Update state to reflect changes
-          setOrders((prevOrders) =>
-            prevOrders.map((order) =>
-              order._id === orderId
-                ? {
-                    ...order,
-                    orderItems: order.orderItems.map((item) =>
-                      item._id === itemId
-                        ? { ...item, orderStatus: newStatus }
-                        : item
-                    ),
-                  }
-                : order
-            )
-          );
-        })
-        .catch((error) => {
-          console.error("Error updating order status:", error);
-        });
-    };
+        .filter(Boolean); // Remove null values (orders that didn't match)
+  
+      console.log("Filtered Orders:", filteredOrders);
+      setFilteredOrders(filteredOrders);
+    } else {
+      setFilteredOrders(orders);
+    }
+  }, [date, orders, option]);
+  
+
+
+
+
     return(
        
         <div>
             <Adminheader />
+            <div className="order">
+             
+              <div className="Adminorder">
+                  <button onClick={()=>{setFilteredOrders(orders);setDate();setOption();}} className="showorder">Show&nbsp;All</button>
+                  <div className="datecontainer">
+                      <label>Date</label>
+                      <input type="date"  onChange={(e)=>setDate(e.target.value)} className="dateinput"></input>
+                  </div>
+                  <div className="statuscontainer">
+                      <label>Status</label>
+                      <select onChange={(e)=>setOption(e.target.value)} className="option">
+                          <option value="" className="option">All</option>
+                          <option value="placed" className="option">Placed</option>
+                          <option value="Dispatched" className="option">Dispatched</option>
+                          <option value="delivered" className="option">Delivered</option>
+                          <option value="Cancel" className="option">Cancelled</option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+  
             <div className="table-container">
+           
         <table className="order-table">
           <thead>
             <tr>
@@ -67,12 +128,12 @@ function AdminOrder({}) {
             </tr>
           </thead>
           <tbody>
-            {orders.length === 0 ? (
+            {filteredOrders.length === 0 ? (
               <tr>
                 <td colSpan="7">No orders found</td>
               </tr>
             ) : (
-              orders.flatMap((order) =>
+              filteredOrders.flatMap((order) =>
                 order.orderItems.map((item, index) => (
                   <tr key={`${order._id}-${index}`}>
                     <td>{new Date(order.createdAt).toLocaleDateString()}</td>
@@ -90,8 +151,8 @@ function AdminOrder({}) {
                         }
                       >
                         <option value="Pending">Pending</option>
-                        <option value="Dispatch">Dispatch</option>
-                        <option value="Deliver">Deliver</option>
+                        <option value="Dispatched">Dispatch</option>
+                        <option value="delivered">Deliver</option>
                         <option value="Cancel">Cancel</option>
                       </select>
                     </td>

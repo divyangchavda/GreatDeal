@@ -11,7 +11,7 @@ function PerformPage({ setFilteredItems, filteredItems, setCartItems }) {
     return (
         <div>
             <Header setShowPanel={setShowPanel} setSearch={setSearch} />
-            <Panel setFilteredItems={setFilteredItems} showPanel={showPanel} search={search} setCurrSelectedCategory={setCurrSelectedCategory} />
+            <Panel setFilteredItems={setFilteredItems} showPanel={showPanel} setShowPanel={setShowPanel} search={search} setCurrSelectedCategory={setCurrSelectedCategory} />
             <Performm filteredItems={filteredItems} setCartItems={setCartItems} search={search} currselectedCategory={currselectedCategory} />
         </div>
     );

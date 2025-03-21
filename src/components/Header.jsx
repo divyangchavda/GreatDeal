@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import '../style/Header.css'
 import Panel from './Panel'
+import axios from 'axios'
 
 
 import { useNavigate } from 'react-router-dom'
@@ -17,23 +18,16 @@ function Header({setShowPanel,setSearch}) {
         navigate('/OrderHistory')
         console.log('orders clicked')
     }
-    const onClickCategory = () => {
-        navigate('/Performcartpage')
-        console.log('cart clicked')
-    }
-    const onClickNoti = () => {
-        navigate('/Performnotipage')
-    }
+   
     const onClickSearch = () => {
         navigate('/Search')
     }
-    // const onClickSignup = () => {
-    //     navigate('/Signuip')
-    // }
+    
     const OnClickGoHome = () => {
         navigate('/Perform')
     }
-    const OnClickLogout = () => {
+    const OnClickLogout = async() => {
+            await axios.post('http://localhost:8000/api/product/SessionDestroy',{withCredentials:true})
         navigate('/Login')
     }
     function onShow(){
@@ -45,12 +39,16 @@ function Header({setShowPanel,setSearch}) {
     const togglePanel = () => {
         setShowPanel((prev) => !prev); // Toggle visibility of Panel
       };
+    function onClickProfile(){
+        navigate('/Profilepage');
+    }
+    
     
     return(
  <>
     <div className='header'>
         <div className='search-div'>
-            <h1><img src="logo1.png" alt=""  onClick={OnClickGoHome}/></h1>
+            <button onClick={OnClickGoHome}>GreatDeals</button>
             <input type="text" placeholder="Search..." className="search-box" onChange={(e)=>setSearch(e.target.value)} />
         </div>
 
@@ -65,7 +63,7 @@ function Header({setShowPanel,setSearch}) {
                     <div className={`profile-block ${isvisible?'show':'hide'}`}>
                             <ul>
                                         <li onClick={onHide}>Close</li>
-                                    <li><i class="fa-regular fa-user"> </i>Profile</li>
+                                    <li onClick={onClickProfile}><i class="fa-regular fa-user"> </i>Profile</li>
                                         <li onClick={OnClickLogout}><i class="fa-solid fa-right-from-bracket"> </i>Logout</li>
             
                               </ul>

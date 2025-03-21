@@ -5,12 +5,26 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import Route  from './routes/userRoutes.js';
 import Razorpay from 'razorpay';
+import session from 'express-session';
 
 const app=express();
-app.use(cors());
+app.use(cors(
+    {
+        origin:'http://localhost:5173',
+        credentials:true
+    }
+));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 dotenv.config();
+app.use(session({
+    secret:"ddddd",
+    resave:false,
+    saveUninitialized:false,
+    cookie:{
+        maxAge:1000*60*60*24
+    }
+}))
 const PORT =process.env.PORT || 5000;
 const MONGOURL = process.env.MONGO_URL;
 
@@ -45,4 +59,4 @@ mongoose.connect(MONGOURL)
             console.log('Error:',error.message)
         })
 
-    app.use("/api/product",Route);
+app.use("/api/product",Route);

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../style/adminperfrom.css';
 import axios from 'axios'; 
-
+// const backenddate = new Date(order.createdAt).toLocaleDateString();
+// console.log("Backend Date:",backenddate);
 function Adminperform({ selectedItems }) {
     const [allProducts, setAllProducts] = useState([]); // Unified state for products
     const [isVisible, setIsVisible] = useState(false);
@@ -90,7 +91,7 @@ function Adminperform({ selectedItems }) {
                 <thead>
                     <tr>
                         <th>
-                            <button onClick={() => setIsVisible(true)}>Add Product</button>
+                            <button className='addproduct-btn' onClick={() => setIsVisible(true)}>Add Product</button>
                         </th>
                     </tr>
                     <tr>
@@ -110,7 +111,7 @@ function Adminperform({ selectedItems }) {
                                 <td>{e.title}</td>
                                 <td>
                                     <img
-                                        src={e.images}
+                                        src={e.images[0]}
                                         alt={e.title}
                                         style={{ width: '50px', height: '50px' }}
                                     />
