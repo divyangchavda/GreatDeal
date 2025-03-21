@@ -13,7 +13,7 @@ const app = express();
 
 // CORS - Allow both local and live frontend
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://your-live-site.com'],
+    origin: ['http://localhost:5173', 'https://e-commerce-react-project.onrender.com'],
     credentials: true
 }));
 
