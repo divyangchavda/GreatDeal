@@ -40,7 +40,7 @@ function Login({setLogUserId}) {
                 
                 <input type='email' placeholder='Email' className='input-field'  onChange={(e)=>setEmail(e.target.value)}/><br />
                 <input type='password' placeholder='Password' className='input-field' onChange={(e)=>setPassword(e.target.value)}/><br />
-                <button  onClick={OnClickLogin} className='login-button'>Login</button>
+                <button  onClick={()=>Navigate('/Perform')} className='login-button'>Login</button>
                 {/* onClick={OnClickLogin} */}
             </div>
         </div>
