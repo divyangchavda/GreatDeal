@@ -165,7 +165,10 @@ const OrderFetchIndividual   = async (req, res) => {
     try {
         // const userEmail = req.params.email;
         const userEmail=req.session.user;
-            console.log("🟢 Uorderfetchindividual:", userEmail);
+            console.log("🟢 orderfetchindividual:", userEmail);
+            if(!userEmail){
+                return res.status(404).json({message:"User email not come"});
+            }
         const order = await Order.find({user: userEmail});
         if (!order || order.length === 0) {
             return res.status(404).json({ message: "Order not found" });

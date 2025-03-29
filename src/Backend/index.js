@@ -14,7 +14,9 @@ const app = express();
 // CORS - Allow both local and live frontend
 app.use(cors({
     origin: ['http://localhost:5173', 'https://e-commerce-react-project.onrender.com'],
-    credentials: true
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
@@ -41,6 +43,8 @@ mongoose.connect(MONGOURL, {
     console.log('✅ Connected to MongoDB Atlas');
     app.listen(PORT, () => {
         console.log(`🚀 Server is running on port ${PORT}`);
+        console.log("MongoDB URI:", process.env.MONGO_URI);
+
     });
 }).catch((error) => {
     console.error('❌ MongoDB Connection Error:', error);
@@ -54,8 +58,8 @@ app.post('/api/product/orders', async (req, res) => {
             key_secret: process.env.RAZORPAY_KEY_SECRET,
         });
         const options = req.body;
-        const orders = await razorpay.orders.create(options);
-        if (!orders) {
+        const orders = await razorpay.orders.create(options); 
+        if (!orders){
             return res.status(500).json({ message: "No Orders" });
         }
         return res.json(orders);

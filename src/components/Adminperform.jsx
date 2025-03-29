@@ -6,6 +6,7 @@ import axios from 'axios';
 function Adminperform({ selectedItems }) {
     const [allProducts, setAllProducts] = useState([]); // Unified state for products
     const [isVisible, setIsVisible] = useState(false);
+    const API_BASE_URL = import.meta.env.VITE_API_URL;// Base URL for API requests
     const [newProduct, setNewProduct] = useState({
         title: "",
         images: "",
@@ -32,7 +33,7 @@ function Adminperform({ selectedItems }) {
         if (newProduct._id) {
             // If _id exists, update the product
             axios
-                .put(`http://localhost:8000/api/product/update/${newProduct._id}`, newProduct)
+                .put(`${API_BASE_URL}/api/product/update/${newProduct._id}`, newProduct)
                 .then((res) => {
                     setAllProducts((prevProducts) =>
                         prevProducts.map((item) =>
@@ -44,7 +45,7 @@ function Adminperform({ selectedItems }) {
         } else {
             // If no _id, create a new product
             axios
-                .post('http://localhost:8000/api/product/create', newProduct)
+                .post(`${API_BASE_URL}/api/product/create`, newProduct)
                 .then((res) => {
                     setAllProducts((prevProducts) => [...prevProducts, res.data]);
                 })
@@ -73,7 +74,7 @@ function Adminperform({ selectedItems }) {
     // Delete Product Function
     const onDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:8000/api/product/delete/${id}`);
+            await axios.delete(`${API_BASE_URL}/api/product/delete/${id}`);
             setAllProducts((prevProducts) => prevProducts.filter((item) => item._id !== id)); // Remove product from state
         } catch (error) {
             console.error("Error deleting product:", error);

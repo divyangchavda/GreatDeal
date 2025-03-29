@@ -2,6 +2,7 @@ import React ,{useState,useEffect} from 'react';
 import '../style/Perform.css'
 
 function Performm({filteredItems,setCartItems}){
+  
      const [selectedProduct, setSelectedProduct] = useState(null);
         const [currentImageIndex, setCurrentImageIndex] = useState(0);
         const [carouselIndex, setCarouselIndex] = useState(0);

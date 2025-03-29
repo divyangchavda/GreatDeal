@@ -178,13 +178,13 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  width: 1400px;
-  padding: 15px;
+  width: 470px;
+  /* padding: 15px; */
 }
 
 /* Input Fields */
 .model input {
- width:100%;
+ width:94%;
   height: 45px;
   padding: 10px;
   border: 2px solid #555;

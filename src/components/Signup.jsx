@@ -3,13 +3,15 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import '../style/signup.css'
 function Signup(){
+    const API_BASE_URL =  import.meta.env.VITE_API_URL;
+
     const [name,setName]=useState()
     const [email,setEmail]=useState()
     const [password,setPassword]=useState()
 
     const navigate=useNavigate()
     function login(){
-        axios.post('http://localhost:8000/api/product/UserCreate',{
+        axios.post(`${API_BASE_URL}/api/product/UserCreate`,{
             name,email,password
         })
         .then((result)=>{

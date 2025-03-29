@@ -5,11 +5,12 @@ import axios from "axios";
 
 function OrderHistory() {
   const [orders, setOrders] = useState([]);
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
   useEffect(() => {
     axios
-      .post(`http://localhost:8000/api/product/OrderFetchIndividual`,{},{withCredentials:true})
+      .post(`${API_BASE_URL}/api/product/OrderFetchIndividual`,{},{withCredentials:true})
       .then((res) => {
-        console.log(res.data);
+        console.log("data of orderfetchindividual",res.data);
         const orderData = res.data;
         const finalOrder = orderData.flatMap(order =>
           order.orderItems.map(item => ({
@@ -28,7 +29,7 @@ function OrderHistory() {
 
   const handleStatusChange = async (orderId, orderItemId, newStatus) => {
     try {
-      const res = await axios.put(`http://localhost:8000/api/product/OrderUpdate/${orderId}`, {
+      const res = await axios.put(`${API_BASE_URL}/api/product/OrderUpdate/${orderId}`, {
         orderItemId: orderItemId, // Pass orderItemId in the request body
         orderStatus: newStatus    // New status from the dropdown+
       });

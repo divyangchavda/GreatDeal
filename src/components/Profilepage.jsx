@@ -3,7 +3,9 @@ import "../style/Profilepage.css";
 import Header from "./Header.jsx";
 import axios from "axios";
 
+
 function Profilepage() {
+    const API_BASE_URL =import.meta.env.VITE_API_URL;
     const [user, setUser] = useState({
         name: "",
         email: "",
@@ -17,7 +19,7 @@ function Profilepage() {
 
        
         
-        axios.post(`http://localhost:8000/api/product/UserDetail`,{},{withCredentials:true})
+        axios.post(`${API_BASE_URL}/api/product/UserDetail`,{},{withCredentials:true})
             .then((res) => {
                 console.log("User data fetched:", res.data);
                 setUser(res.data);
@@ -40,7 +42,7 @@ function Profilepage() {
             console.log("Updating user:", user);
             
             const res = await axios.put(
-                `http://localhost:8000/api/product/UserDetailUpadate`,user,{withCredentials:true} );
+                `${API_BASE_URL}/api/product/UserDetailUpadate`,user,{withCredentials:true} );
 
             console.log("Updated user:", res.data);
             setUser(res.data);

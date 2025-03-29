@@ -5,12 +5,13 @@ import axios from 'axios';
 
 
 function Adminpanel({setselectedItem,showPanel,search}) {
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
 
     const [category,setCategory]=useState("All")
     const [data,setData]  = useState([]);
 
     useEffect(()=>{
-    axios.get('http://localhost:8000/api/product/Fetch')
+    axios.get(`${API_BASE_URL}/api/product/Fetch`)
         .then((res)=>{
             
             const apiData=res.data.Products;

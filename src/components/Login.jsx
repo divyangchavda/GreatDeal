@@ -3,11 +3,11 @@ import "../style/Login.css";
 import  { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 function Login() {  
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const Navigate = useNavigate();
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
     
    
     const onClickAdmin=()=>{
@@ -20,7 +20,7 @@ function Login() {
     }
     const OnClickLogin = () => {
         try{
-        axios.post('http://localhost:8000/api/product/UserLogin', { email, password },{withCredentials:true})
+        axios.post(`${API_BASE_URL}/api/product/UserLogin`, { email, password },{withCredentials:true})
             .then((res) => {
                 const data = res.data;
                 console.log(res.data);
@@ -62,7 +62,7 @@ function Login() {
                 
                 <input type='email' placeholder='Email' className='input-field'  onChange={(e)=>setEmail(e.target.value)}/><br />
                 <input type='password' placeholder='Password' className='input-field' onChange={(e)=>setPassword(e.target.value)}/><br />
-                <button  onClick={()=>Navigate('/Perform')} className='login-button'>Login</button>
+                <button  onClick={OnClickLogin} className='login-button'>Login</button>
                 {/* onClick={OnClickLogin} */}
             </div>
         </div>

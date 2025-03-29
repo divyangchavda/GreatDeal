@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Panel({ setFilteredItems, showPanel ,search,setCurrSelectedCategory,setShowPanel}) {
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
   const [selectedCategory, setSelectedCategory] = useState("All"); // Default category is 'All'
   const [data, setData] = useState([]); // Holds the products fetched from the API
   const [btnshow, setBtnShow] = useState(false); // This state controls the visibility of the button (optional use case)
@@ -11,7 +12,7 @@ function Panel({ setFilteredItems, showPanel ,search,setCurrSelectedCategory,set
 
   useEffect(() => {
     // Fetch products from the API on component mount
-    axios.get('http://localhost:8000/api/product/Fetch')
+    axios.get(`${API_BASE_URL}/api/product/Fetch`)
       .then((res) => {
         console.log(res.data.Products);
         setData(res.data.Products); // Set the products data from the response

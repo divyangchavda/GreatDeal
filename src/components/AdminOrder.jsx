@@ -8,6 +8,8 @@ function AdminOrder({}) {
     const [filteredOrders,setFilteredOrders]=useState([]);
     const [date,setDate]=useState();
     const [option,setOption]=useState();
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
+// Base URL for API requests
   
     useEffect(() => {
       fetchOrders();
@@ -18,7 +20,7 @@ function AdminOrder({}) {
     // Function to fetch orders
     const fetchOrders = () => {
       axios
-        .get("http://localhost:8000/api/product/OrderFetchAdmin")
+        .get(`${API_BASE_URL}/api/product/OrderFetchAdmin`)
         .then((res) => {
           console.log(res.data);
           
@@ -32,7 +34,7 @@ function AdminOrder({}) {
     }; 
     const updateOrderStatus= async (OrderFetchIndividual,orderItemId,newStatus)=>{
         try{
-            const res=await axios.put(`http://localhost:8000/api/product/OrderUpdate/${OrderFetchIndividual}`,{
+            const res=await axios.put(`${API_BASE_URL}/api/product/OrderUpdate/${OrderFetchIndividual}`,{
                 orderItemId:orderItemId,
                 orderStatus:newStatus
             });

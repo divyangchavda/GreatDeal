@@ -7,7 +7,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 function Header({setShowPanel,setSearch}) {
-    
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
     const [isvisible,setIsvisible] =useState(false)
     const navigate = useNavigate();
     const onClickCart = () => {
@@ -27,7 +27,7 @@ function Header({setShowPanel,setSearch}) {
         navigate('/Perform')
     }
     const OnClickLogout = async() => {
-            await axios.post('http://localhost:8000/api/product/SessionDestroy',{withCredentials:true})
+            await axios.post(`${API_BASE_URL}/api/product/SessionDestroy`,{withCredentials:true})
         navigate('/Login')
     }
     function onShow(){

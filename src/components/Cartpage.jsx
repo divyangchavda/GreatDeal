@@ -9,7 +9,7 @@ function Cartpage({ cartItems, setCartItems }) {
     const [totalPrice, setTotalPrice] = useState(0);
     const [address, setAddress] =useState("");
     const [showAddress, setShowAddress] = useState(false); 
-
+    const API_BASE_URL = import.meta.env.VITE_API_URL; // Base URL for API requests
     const remove = (id) => {
         let newCart = cartItems.filter((e) => e._id !== id);
         setCartItems(newCart);
@@ -51,7 +51,7 @@ function Cartpage({ cartItems, setCartItems }) {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/product/orders', {
+            const response = await fetch(`${API_BASE_URL}/api/product/orders`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -119,7 +119,7 @@ function Cartpage({ cartItems, setCartItems }) {
                         };
                         console.log("sending order data",orderData);
                         try {
-                        const res = await axios.post('http://localhost:8000/api/product/OrderData', orderData ,{withCredentials:true});
+                        const res = await axios.post(`${API_BASE_URL}/api/product/OrderData`, orderData ,{withCredentials:true});
                         } catch (error) {
                             console.error('Error sending order data to the server:', error);
                         }
@@ -137,29 +137,6 @@ function Cartpage({ cartItems, setCartItems }) {
                         console.error('Error sending order data to the server:', error);
                     }
                 },
-                
-                // handler: async function (response) {
-                //     try{
-                //         const res= await axios.post('http://localhost:8000/api/product/OrderData',{
-                //             userId,orderItems
-                //         })
-
-
-
-                //     }catch(error){
-                //         console.error('Error sending products to the server:', error);
-
-                //     }
-                    // try {
-
-                    //     navigate("/OrderHistory", { state: { cartItems } });
-                    //     console.log(cartItems)
-                    //     setAdminOrderList((prev) => [...prev, cartItems]);
-                    //     setCartItems([]);
-                    // } catch (error) {
-                    //     console.error('Error sending products to the server:', error);
-                    // }
-                
                 config: {
                     display: {
                         blocks: {
@@ -207,12 +184,12 @@ function Cartpage({ cartItems, setCartItems }) {
             cartItems.map((e,index) => 
                 <div  className='cart-item' key={index} >
                     <div className='cart-image-div'>
-                        <img src={e.images} alt='Product' className='cart-image' />
+                        <img src={e.images[0]} alt='Product' className='cart-image' />
                     </div>
                     <div className='cart-info-div'>
                         <h2 className='cart-title'>{e.title}</h2>
                         <p className='cart-description'>{e.description}</p>
-                        <p className='cart-price' >{e.price} $</p>
+                        <p className='cart-price' >{e.price} ₹</p>
                     </div>
                     <div className='remove-button-div'>
                         <button onClick={()=>remove(e._id)} className='remove-btn'>Remove</button>
@@ -227,7 +204,7 @@ function Cartpage({ cartItems, setCartItems }) {
                      </div>
 
                 <div className='payment-div'>
-                        <p>Total: {Math.floor(totalPrice * 100) / 100} $</p>
+                        <p>Total: {Math.floor(totalPrice * 100) / 100} ₹</p>
                         <button  onClick={(Payment)}>PAYMENT</button> 
                       
                     
