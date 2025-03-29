@@ -97,6 +97,7 @@ const Delete = async (req, res) => {
             age:''
         })
         return res.status(201).json(user);
+        console.log("User Created",user);
     }
     catch(error){
         return res.status(404).json({error:"Internal Server Error"})
