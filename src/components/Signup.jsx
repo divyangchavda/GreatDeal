@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import '../style/signup.css'
 function Signup(){
-    const API_BASE_URL =  import.meta.env.VITE_API_URL;
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
+    console.log("ApibaseUrl",API_BASE_URL)  
 
     const [name,setName]=useState()
     const [email,setEmail]=useState()
@@ -11,7 +12,7 @@ function Signup(){
 
     const navigate=useNavigate()
     function login(){
-        axios.post(`${API_BASE_URL}/api/product/UserCreate`,{
+        axios.post(`http://localhost:8000/api/product/UserCreate`,{
             name,email,password
         })
         .then((result)=>{
