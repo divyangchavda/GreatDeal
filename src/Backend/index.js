@@ -43,13 +43,15 @@ app.options('*', (req, res) => {
 // ✅ Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+const PORT = process.env.PORT || 5000;
+const MONGOURL = process.env.MONGO_URL;
 
 app.use(session({
     secret: "ddddd",
     resave: false,
     saveUninitialized: false,
     store:MongoStore.create({
-        mongoUrl:process.env.MONGO_URL,
+        mongoUrl:MONGOURL,
         collectionName:"sessions",
         ttl: 14 * 24 * 60 * 60, // 14 days
 
@@ -62,8 +64,7 @@ app.use(session({
     }
 }));
 
-const PORT = process.env.PORT || 5000;
-const MONGOURL = process.env.MONGO_URL;
+
 
 // ✅ Debugging - Check if environment variables are loaded
 console.log("MongoDB URL:", MONGOURL);
