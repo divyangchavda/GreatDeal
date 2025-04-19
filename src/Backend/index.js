@@ -49,7 +49,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store:MongoStore.create({
-        mongoUrl:process.env.MONGOURL,
+        mongoUrl:process.env.MONGO_URL,
         collectionName:"sessions",
         ttl: 14 * 24 * 60 * 60, // 14 days
 
