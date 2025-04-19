@@ -6,6 +6,7 @@ import cors from 'cors';
 import Route from './routes/userRoutes.js';
 import Razorpay from 'razorpay';
 import session from 'express-session';
+import MongoStore from 'connect-mongo';
 
 dotenv.config();
 
@@ -47,7 +48,18 @@ app.use(session({
     secret: "ddddd",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 }
+    store:MongoStore.create({
+        mongoUrl:process.env.MONGOURL,
+        collectionName:"sessions",
+        ttl: 14 * 24 * 60 * 60, // 14 days
+
+    }),
+    cookie: { maxAge: 1000 * 60 * 60 * 24 ,
+        secure: true, // Set to true if using HTTPS
+        httpOnly: true, // Make cookie inaccessible to client-side JavaScript
+        sameSite: 'lax', 
+
+    }
 }));
 
 const PORT = process.env.PORT || 5000;

@@ -12,7 +12,7 @@ function Signup(){
 
     const navigate=useNavigate()
     function login(){
-        axios.post(`http://localhost:8000/api/product/UserCreate`,{
+        axios.post(`${API_BASE_URL}/api/product/UserCreate`,{
             name,email,password
         })
         .then((result)=>{

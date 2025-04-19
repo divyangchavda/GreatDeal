@@ -129,6 +129,8 @@ const UserLogin = async (req, res) => {
         }
         const userEmail = user.email;
         req.session.user = userEmail;
+        console.log("User logged in:", userEmail);
+        console.log("Session data:", req.session.user);
         await req.session.save();
 
         res.status(200).json(user);
@@ -140,6 +142,7 @@ const UserLogin = async (req, res) => {
 const OrderCreate = async (req, res) => {
     try {
         const user= req.session.user;
+        console.log("🟢 OrderCreate User:", user);
         const {orderItems, shippingAddress, isPaid } = req.body;
         
         // Validate request body

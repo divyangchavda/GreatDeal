@@ -83,6 +83,7 @@ function Cartpage({ cartItems, setCartItems }) {
                 },handler: async function (response) {
                     try {
                         // Fetch user ID (modify as needed)
+                      
                     
                         
                         if (cartItems.length === 0) {
@@ -120,11 +121,19 @@ function Cartpage({ cartItems, setCartItems }) {
                         console.log("sending order data",orderData);
                         try {
                         const res = await axios.post(`${API_BASE_URL}/api/product/OrderData`, orderData ,{withCredentials:true});
+                        console.log("Order data sent successfully:", res.data);
+                        // Optionally, you can handle the response here
+                        // For example, you can show a success message or redirect the user
+                        // to another page
+                        // alert("Order placed successfully!");
+                        // setCartItems([]); // Clear cart after successful order
+                        // navigate("/OrderHistory"); // Redirect to order history
+
                         } catch (error) {
                             console.error('Error sending order data to the server:', error);
                         }
-                        console.log("✅ Order Created Successfully:", res.data);
-                        // const res = await axios.post('http://localhost:8000/api/product/OrderData', orderData);
+                        // console.log("✅ Order Created Successfully:", res.data);
+                        
                 
                         if (res.status === 201) {
                             alert("Order placed successfully!");
