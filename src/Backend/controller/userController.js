@@ -128,31 +128,50 @@ const UserLogin = async (req, res) => {
             return res.status(404).json({ message: "Invalid email or password" });
         }
         const userEmail = user.email;
-        req.session.user = userEmail;
-        console.log("User logged in:", userEmail);
-        console.log("Session data:", req.session.user);
-        await req.session.save();
+        // req.session.user = userEmail;
+        // console.log("User logged in:", userEmail);
+        // console.log("Session data:", req.session.user);
+        // await req.session.save();
 
-        res.status(200).json(user);
+        // res.status(200).json(user);
+        req.session.user = {
+            
+            email: user.email,
+            // Add other user details as required
+        };
+req.session.save(err => {
+  if (err) {
+    console.error("Session save error:", err);
+    return res.status(500).json({ message: "Session save failed" });
+  }
+  console.log("User logged in:", userEmail);
+        console.log("Session data:", req.session.user);
+  res.status(200).json(user); // Respond only after session is saved
+});
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal server error in UserLogin" });
     }
 }
+
+
 const OrderCreate = async (req, res) => {
     try {
-        const user= req.session.user;
-        console.log("🟢 OrderCreate User:", user);
+        const sessionUser= req.session.user;
+        console.log("🟢 OrderCreate User:",req.session.user );
+        if (!sessionUser) {
+            return res.status(401).json({ error: "User not authenticated. Please log in." });
+        }
         const {orderItems, shippingAddress, isPaid } = req.body;
         
         // Validate request body
-        if (!user || !orderItems || orderItems.length === 0 || !shippingAddress ) {
+        if ( !orderItems || orderItems.length === 0 || !shippingAddress ) {
             return res.status(400).json({ error: "Invalid order data. Please provide all required fields." });
         }
 
         // Create a new order
         const order = await Order.create({
-            user,
+            user: sessionUser.email, // Use the email from the session
             orderItems,
             shippingAddress,
             isPaid: isPaid || false, // Default to false if not provided
