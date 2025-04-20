@@ -130,7 +130,7 @@ function Cartpage({ cartItems, setCartItems }) {
                         // navigate("/OrderHistory"); // Redirect to order history
 
                         } catch (error) {
-                            console.error('Error sending order data to the server:', error);
+                            console.error('Error sending order data to the server inner catch block in cart page:', error);
                         }
                         // console.log("✅ Order Created Successfully:", res.data);
                         
@@ -143,7 +143,7 @@ function Cartpage({ cartItems, setCartItems }) {
                           
                         }
                     } catch (error) {
-                        console.error('Error sending order data to the server:', error);
+                        console.error('Error sending order data to the server outer catch block in cartpage:', error);
                     }
                 },
                 config: {

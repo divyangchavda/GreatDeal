@@ -157,7 +157,7 @@ req.session.save(err => {
 
 const OrderCreate = async (req, res) => {
     try {
-        const sessionUser= req.session.user;
+        const sessionUser= req.session.user.email;
         console.log("🟢 OrderCreate User:",req.session.user );
         if (!sessionUser) {
             return res.status(401).json({ error: "User not authenticated. Please log in." });
