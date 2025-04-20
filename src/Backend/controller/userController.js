@@ -157,11 +157,13 @@ req.session.save(err => {
 
 const OrderCreate = async (req, res) => {
     try {
-        const sessionUser= req.session.user.email;
-        console.log("🟢 OrderCreate User:",req.session.user );
-        if (!sessionUser) {
+        const sessionUser= req.session.user;
+     
+        if (!sessionUser || !sessionUser.email) {
             return res.status(401).json({ error: "User not authenticated. Please log in." });
         }
+        console.log("🟢 OrderCreate User:",req.session.user );
+        console.log("🟢 OrderCreate User email id :",sessionUser.email );
         const {orderItems, shippingAddress, isPaid } = req.body;
         
         // Validate request body
